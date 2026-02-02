@@ -1,3 +1,5 @@
+## Session 3 - 1/27 
+
 ## 10 Things I Did Not Understand
 
 - What does span entail? 
