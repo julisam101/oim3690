@@ -22,9 +22,9 @@
         - runs on the server 
         - python, node, PHP
         - data processing, databases
-- HTML: structure and content, its the skeleton
-- CSS: styling and layout, the clothes
-- JavaScript: behavior and interactivity, the msucles 
+- HTML: structure and content, its the skeleton  (text, header, paragraph)
+- CSS: styling and layout, the clothes (widgets, images, how does it look, size, color)
+- JavaScript: behavior and interactivity, the msucles (movements, animations)
 - Elements: HTML structure and CSS styles
 - Console: JavaScript errors and output
 - Netowrk: HTTP request and responses
