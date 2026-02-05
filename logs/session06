@@ -1,0 +1,11 @@
+What I Learned:
+
+- responsive design: when you change the size of the screen, it changes the layou to the content
+- if the website is broken,
+  - when you expect the link to work one way but it's the opposite
+    - solution: right click and click on inspect, often times you need to add the https://
+    - if it doesn't have the https:// the computer reads it as a file and not an actual link
+  - the server is not loading properly
+
+- HTML Essentials:
+  - ** control shift P
