@@ -5,4 +5,7 @@ This is my course repository for OIM3690.
 - Name: *Julissa Morales*
 
 ### Links
-
+- Personal Website  
+    - Projects
+- In-Class Exercises
+- Learning logs 
