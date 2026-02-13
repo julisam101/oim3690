@@ -28,9 +28,8 @@ li{
     font-family: cursive;
 }
 
-
-li:has(> ul) {
-    color: rgb(72, 29, 72); 
+li.list-header{
+    color: rgb(4, 103, 103);
 }
 
 
