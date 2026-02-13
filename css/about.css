@@ -1,77 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title> About Me! </title>
-    <link rel="stylesheet" href="/css/about-me.css.css">/
+h1{ 
+    color: rgb(2, 57, 105);
+    font-family: cursive;
+    text-align: center;
+    font-size: 50px;
+}
 
+h2{
+    color: rgb(11, 72, 125);
+    font-family: cursive;
+    text-align: center;
+    font-size: 25px;
+}
+
+h3{
+    text-align: center;
+}
+
+li{
+    color: rgb(25, 88, 144);
+    font-family: cursive;
+    list-style-type: square;
+}
+
+footer{
+    text-align: center;
+    font-family: cursive;
+    color: rgb(61, 119, 169);
+}
+
+li:has(>ul){
+    color: rgb(235, 105, 19);
+    font-family: cursive;
+    list-style-type: square;
+
+}
     
-
-</head>
-
-<body>
-    <h1> Julissa Morales </h1>
-    <h2> <em> Click on the Links to Learn More About Me! </em> </h2>
-    <h3> 🥸 </h3>
-
-<p>
-<ul>
-   <li> My Favorites  </li> 
-         <ul>  
-            <li> Food: Tacos </li>
-            <li> Color: Blue </li>
-            <li> Number: 4 </li>
-            <li> Song: My Way by Frank Sinatra </li> 
-        </ul>
-       
-      
-   <li> Fun Facts </li>
-         <ul>
-            <li> Left Handed </li>
-            <li> Signed Celtics Player Cards </li>
-            <li> Have 2 Chicken Pets </li>
-            <li> Served a Latte for Ed Helms </li>  
-        </ul>
- 
-
-   <li> Hobbies </li>
-            <ul>
-                <li> Reading (1984 by Geogre Orwell) </li>
-                <li> Lanugage Learning (German) </li>
-                <li> Playing Squash </li>
-                <li> Dancing </li>
-            </ul>
-
-
-   <li> Childhood Memories</li>
-            <ul>
-                <li> Having a pet bunny and 10 fishes </li>
-                <li> Going to work with my father in the summer </li>
-                <li> Went to Guatemala alone </li>
-                <li> Biking all around my city </li>
-            </ul>
-
-   <li> Adolescent Memories </li>
-            <ul>
-                <li> Taking over 13 months to get my driver's license </li>
-                <li> First Concert was The Weeknd </li>
-                <li> Having a quinceanera </li>
-                <li> Graduating as the Salutatorian  </li>
-            </ul>
-
-
-   <li> Young Adult Memories </li>
-            <ul>
-                <li> Starting College at Babson </li>
-                <li> Being on 2 news segments  </li>
-                <li> Studying Abroad in Sevilla, Spain </li>
-                <li> to be continued...</li>
-            </ul>
-</ul>
-
-</p> 
-<body> 
-
-
-
-<footer> <p> <small> @Julissa Morales Incorporation </small></p> </footer>
-
