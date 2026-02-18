@@ -18,5 +18,16 @@ CSS Esessentials: [Cascading Style Sheets]
 
 
 3 Ways to Add CSS:
-        1. External 
+        1. External (it's recommended because it's easy to find and can use the same layout for multiple pages so you don't have to rewrite the same code over and over again)
+        2. Interal
+        3. Include (avoid)
       
+
+- so when you have a HTML file and an CSS file, the priority of colors/fonts/layout will be the latest code as it overrides it
+
+Why "Cascading"?
+- when multiple styles conflic, CSS follows this priority: 
+        1. include styles (highest priorty) 
+        2. internal/external stylesheets (last one wins)
+        3. browser defaults (lowest priority)
+        4. more specific selectors also win over less specific ones
