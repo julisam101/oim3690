@@ -5,6 +5,7 @@
 - Additionally, if there are two files (HTML and CSS), the computer reads and follows the last style of code. So in this case the last one wins. This session really allowed me to truly understand what each line of code does and how to properly manipulate them.
 
 ## Code I'm Proud of 
+- I am proud of the CSS files we worked on in class. For the longest time, I thought code was a bunch of random letters and symbols placed together. However, when writing up the CSS code, it all started to connect and I began to fully understand which each line does. With that, I was able to understand how to change the code to fit the needs of the website.
 
 ## Challenges I faced
 - For the "about me" section, I have bullet points under my bullet points. So the set under the main bullet points, I couldn't seem to find a way to change the color. The color defaults to all the bullets however, what I want to do is separate the main bullet point header from the bullet point body. I have tried asking AI but it spits out this long, overly complicated lines of code.
