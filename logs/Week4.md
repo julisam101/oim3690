@@ -13,6 +13,7 @@
 ## AI Usage (if any)
 
 ## Questions Going Forward
+- How do we set up another repository? I briefly remember but I don't want to mess up the other repositories. A quick re-demo would be helpful. Thank you! 
 
 ## App/Website Idea
 - how well my friends/family know me, moving random facts to either true or false section
