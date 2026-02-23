@@ -1,4 +1,4 @@
-# Class Notes 09 - 02/29 
+# Class Notes 09 - 02/19 
 
 3 Ways to Add CSS: 
 - external (recommended)
@@ -10,7 +10,7 @@ Cascading Style Sheets:
 - inline will always override internal and external 
 - the more partiuclar it is, the more priority it has 
 
-- What if you want only the firs two paragraphs one color from the rest? 
+- What if you want only the first two paragraphs one color from the rest? 
         - would give the section a class name 
         - in the CSS folder, you would put p. then the color 
 
