@@ -1,0 +1,42 @@
+h1 {
+    color: navy;
+    font-family: cursive;
+    text-align: center;
+}
+
+h2 {
+    color: darkorchid;
+    font-family: Times New Roman;
+    text-align: center;
+}
+
+
+
+.lead {
+    color: navy;
+    font-family: cursive;
+    font-weight: 700;
+    text-align: center;
+    font-size: 1.15rem;
+    margin: 0.25rem 0 0.75rem;
+}
+
+.my-element:hover {
+    background-color: #3b82f6;
+    color: white;
+}
+
+
+@keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+body {
+    animation: fade-in-up 420ms cubic-bezier(.2,.9,.2,1) both;
+    will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body { animation: none !important; }
+}
