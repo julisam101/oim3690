@@ -1,3 +1,5 @@
+/* Basic typography */
+
 h1 {
     color: navy;
     font-family: cursive;
@@ -6,11 +8,9 @@ h1 {
 
 h2 {
     color: darkorchid;
-    font-family: Times New Roman;
+    font-family: "Times New Roman", serif;
     text-align: center;
 }
-
-
 
 .lead {
     color: navy;
@@ -26,17 +26,83 @@ h2 {
     color: white;
 }
 
-
+/* reusable keyframes */
 @keyframes fade-in-up {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes gentle-pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+@keyframes float-y {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes jump {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-10px); }
+  75% { transform: translateY(-5px); }
+}
+
+/* utility classes */
+.animate-fade-in {
+  animation: fade-in-up 420ms cubic-bezier(.2,.9,.2,1) both;
+}
+
+.animate-slide-left {
+  animation: slide-in-left 380ms ease both;
+}
+
+.animate-pulse {
+  animation: gentle-pulse 2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.animate-float {
+  animation: float-y 3.2s ease-in-out infinite;
+}
+
+.animate-jump {
+  animation: jump 1s ease-in-out infinite;
+}
+
+.rotate-on-hover {
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.rotate-on-hover:hover {
+  transform: rotate(3deg) scale(1.02);
+}
+
+.delay-150 { animation-delay: 150ms; }
+.delay-300 { animation-delay: 300ms; }
+
+/* body entrance */
 body {
-    animation: fade-in-up 420ms cubic-bezier(.2,.9,.2,1) both;
-    will-change: opacity, transform;
+  animation: fade-in-up 420ms cubic-bezier(.2,.9,.2,1) both;
+  will-change: opacity, transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    body { animation: none !important; }
+  body,
+  .animate-fade-in,
+  .animate-slide-left,
+  .animate-pulse,
+  .animate-float,
+  .animate-jump,
+  .rotate-on-hover {
+    animation: none !important;
+    transition: none !important;
+  }
 }
+
