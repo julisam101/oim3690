@@ -16,4 +16,15 @@
 
 - why are there certain sections crossed out as in striked out on the inspect page? 
     - there is a priority of the selectors 
-- 
+
+
+
+
+# CSS Layout Evolution 
+
+- Flexbox 
+    - one direction at a time
+    - navigation bar 
+
+
+- when using perfect centering, it does not matter how long the text is, perfect centering will make it perfect and automatically change the sizing
