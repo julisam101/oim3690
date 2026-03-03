@@ -1,4 +1,4 @@
-# Week 5[2/24 and 2/26]
+# Week 6[2/24 and 2/26]
 
 ## CS Diner Update: 
 - I have attached a photo of the game, hopefully it appears. If not, I am more than happy to send you the screenshot. 
