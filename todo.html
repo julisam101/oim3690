@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple TODO App</title>
+    <style>
+        body {
+            font-family: cursive;
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            background-color: lightblue; 
+        }
+        h1 {
+            text-align: center;
+        }
+        #new-todo {
+            width: calc(100% - 90px);
+            padding: 0.5rem;
+            font-size: 1rem;
+        }
+        #add-btn {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            margin-left: 0.5rem;
+            background-color: darkblue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        ul#todo-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        ul#todo-list li {
+            padding: 0.5rem;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        ul#todo-list li.completed span {
+            text-decoration: line-through;
+            color: #888;
+        }
+        .remove-btn {
+            background: transparent;
+            border: none;
+            color: #c00;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>TODO List</h1>
+    <div>
+        <input type="text" id="new-todo" placeholder="Add a new task..." />
+        <button id="add-btn">Add</button>
+    </div>
+    <ul id="todo-list"></ul>
+
+    <script>
+        const input = document.getElementById('new-todo');
+        const addBtn = document.getElementById('add-btn');
+        const list = document.getElementById('todo-list');
+
+        function createTodoItem(text) {
+            const li = document.createElement('li');
+            const span = document.createElement('span');
+            span.textContent = text;
+            span.addEventListener('click', () => {
+                li.classList.toggle('completed');
+            });
+
+            const removeBtn = document.createElement('button');
+            removeBtn.textContent = '✖';
+            removeBtn.className = 'remove-btn';
+            removeBtn.addEventListener('click', () => {
+                list.removeChild(li);
+            });
+
+            li.appendChild(span);
+            li.appendChild(removeBtn);
+            return li;
+        }
+
+        addBtn.addEventListener('click', () => {
+            const text = input.value.trim();
+            if (text) {
+                const item = createTodoItem(text);
+                list.appendChild(item);
+                input.value = '';
+                input.focus();
+            }
+        });
+
+        input.addEventListener('keypress', e => {
+            if (e.key === 'Enter') {
+                addBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>
