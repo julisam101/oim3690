@@ -10,10 +10,10 @@
         - settings and checkout
 - www.babson...../search-results/?search=summer [this would populate when you search "summer" on the Babson page]
  
-- action: where to send the data (a URL or server endpoint) - where it's going
+- action: where to send the data (a URL or server endpoint) - where it's going --> where is the data sent to 
 - method:
     - GET: data inthe URL, use for search/filtering (results are bookmarkable)
-    - POST: data in the request body, use for login, checkout or sensitive data (it won't save/post data on it's history)
+    - POST: data in the request body, use for login, checkout or sensitive data (it won't save/post data on it's history) (used to upload file, store sensitive information)
 
 - GET would relieve the password as in it will show up on the url link, that's when you would use POST to hide the password that way it doesn't show up on th url link 
 
