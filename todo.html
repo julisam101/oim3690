@@ -7,51 +7,158 @@
     <title>Simple TODO App</title>
     <style>
         body {
-            font-family: cursive;
-            max-width: 600px;
-            margin: 2rem auto;
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive, sans-serif;
+            max-width: 900px;
+            margin: 1rem auto;
             padding: 0 1rem;
-            background-color: lightblue; 
+            background: linear-gradient(135deg, #d3f5ff 0%, #e0ffe7 100%);
         }
         h1 {
             text-align: center;
+            font-size: 2.3rem;
+            color: #ff6f91;
+            text-shadow: 2px 2px 0px #ffa7c4, 4px 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 0.5rem;
         }
         #new-todo {
-            width: calc(100% - 90px);
-            padding: 0.5rem;
-            font-size: 1rem;
+            width: calc(100% - 110px);
+            padding: 0.75rem;
+            font-size: 1.1rem;
+            border: 3px dashed #ffb703;
+            border-radius: 18px;
+            background: #fffef2;
+            outline: none;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        #new-todo:focus {
+            border-color: #0085ff;
+            transform: scale(1.02);
         }
         #add-btn {
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
+            padding: 0.75rem 1.4rem;
+            font-size: 1.1rem;
             margin-left: 0.5rem;
-            background-color: darkblue;
+            background-color: #f72585;
             color: white;
             border: none;
+            border-radius: 16px;
             cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        ul#todo-list {
-            list-style: none;
-            padding: 0;
+        #add-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+        #todo-board {
+            position: relative;
+            min-height: 400px;
             margin-top: 1rem;
         }
-        ul#todo-list li {
-            padding: 0.5rem;
-            border-bottom: 1px solid #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .todo-item {
+            padding: 0.75rem;
+            border: 2px solid #daa520;
+            background: #fff3b0;
+            border-radius: 12px;
+            box-shadow: 4px 4px 16px rgba(0,0,0,.2);
+            width: 260px;
+            min-height: 130px;
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 0.6rem;
+            cursor: grab;
+            user-select: none;
+            position: absolute;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            will-change: top, left, transform;
         }
-        ul#todo-list li.completed span {
+        .todo-item.dragging {
+            transform: scale(1.02);
+            box-shadow: 8px 8px 24px rgba(0,0,0,.4);
+        }
+        .todo-item:active {
+            cursor: grabbing;
+        }
+        .todo-item.completed span {
             text-decoration: line-through;
             color: #888;
         }
-        .remove-btn {
-            background: transparent;
-            border: none;
-            color: #c00;
-            font-size: 1.2rem;
+        .todo-item span {
+            flex: 1;
             cursor: pointer;
+        }
+        .note-title {
+            position: absolute;
+            top: 0.3rem;
+            left: 0.6rem;
+            width: calc(100% - 120px);
+            border: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            background: transparent;
+            color: #5f3700;
+            outline: none;
+            cursor: text;
+        }
+        .todo-item .subtask-toggle {
+            font-size: 1.2rem;
+            border: none;
+            background: #ffe0a8;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            line-height: 1;
+            margin-top: 0.25rem;
+        }
+        .subtask-area {
+            margin-top: 0.75rem;
+            display: none;
+            flex-direction: column;
+            gap: 0.4rem;
+            width: 100%;
+        }
+        .subtask-area.active {
+            display: flex;
+        }
+        .subtask-input-row {
+            display: flex;
+            gap: 0.35rem;
+        }
+        .subtask-input-row input {
+            flex: 1;
+            padding: 0.3rem;
+            font-size: 0.86rem;
+            border: 1px dashed #b07d00;
+            border-radius: 8px;
+        }
+        .subtask-input-row button {
+            padding: 0.28rem 0.45rem;
+            font-size: 0.85rem;
+            border: none;
+            border-radius: 8px;
+            background: #ffb703;
+            color: #5f3700;
+            cursor: pointer;
+        }
+        .subtask-list {
+            list-style-type: disc;
+            margin-left: 1rem;
+            padding-left: 0.7rem;
+        }
+        .subtask-list li {
+            font-size: 0.9rem;
+            padding: 0.15rem 0;
+            cursor: pointer;
+        }
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
         }
     </style>
 </head>
@@ -61,38 +168,244 @@
         <input type="text" id="new-todo" placeholder="Add a new task..." />
         <button id="add-btn">Add</button>
     </div>
-    <ul id="todo-list"></ul>
+    <div id="todo-board"></div>
+    <canvas id="confetti-canvas"></canvas>
 
     <script>
         const input = document.getElementById('new-todo');
         const addBtn = document.getElementById('add-btn');
-        const list = document.getElementById('todo-list');
+        const board = document.getElementById('todo-board');
+        const confettiCanvas = document.getElementById('confetti-canvas');
+        const confettiCtx = confettiCanvas.getContext('2d');
+
+        const stickyColors = ['#fff3b0', '#cde7ff', '#ffdfd3', '#eae6ff', '#d1ffd6', '#ffe0f5', '#f0f8d8'];
+
+        let draggingItem = null;
+        let dragOffsetX = 0;
+        let dragOffsetY = 0;
+
+        function resizeConfettiCanvas() {
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeConfettiCanvas);
+        resizeConfettiCanvas();
+
+        function random(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        let confettiParticles = [];
+
+        function createConfettiParticles(count) {
+            const colors = ['#ff595e', '#ffca3a', '#8ac926', '#1982c4', '#6a4c93'];
+            for (let i = 0; i < count; i++) {
+                confettiParticles.push({
+                    x: random(0, confettiCanvas.width),
+                    y: random(0, confettiCanvas.height * 0.3),
+                    vx: random(-4, 4),
+                    vy: random(2, 7),
+                    size: random(6, 12),
+                    rotation: random(0, Math.PI * 2),
+                    rotationSpeed: random(-0.1, 0.1),
+                    color: colors[Math.floor(random(0, colors.length))],
+                    ttl: random(60, 120)
+                });
+            }
+        }
+
+        function renderConfetti() {
+            if (confettiParticles.length === 0) {
+                return;
+            }
+            confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            const next = [];
+            for (const p of confettiParticles) {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.15;
+                p.rotation += p.rotationSpeed;
+                p.ttl -= 1;
+
+                if (p.y < confettiCanvas.height && p.ttl > 0) {
+                    next.push(p);
+                    confettiCtx.save();
+                    confettiCtx.translate(p.x, p.y);
+                    confettiCtx.rotate(p.rotation);
+                    confettiCtx.fillStyle = p.color;
+                    confettiCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                    confettiCtx.restore();
+                }
+            }
+
+            confettiParticles = next;
+            if (confettiParticles.length > 0) {
+                requestAnimationFrame(renderConfetti);
+            } else {
+                confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            }
+        }
+
+        function fireConfetti() {
+            createConfettiParticles(120);
+            requestAnimationFrame(renderConfetti);
+        }
+
+        function fireConfettiGrande() {
+            createConfettiParticles(260);
+            requestAnimationFrame(renderConfetti);
+        }
 
         function createTodoItem(text) {
-            const li = document.createElement('li');
+            const note = document.createElement('div');
+            note.className = 'todo-item';
+
+            note.style.left = `${Math.max(20, Math.random() * (window.innerWidth - 300))}px`;
+            note.style.top = `${20 + (board.children.length * 110) % (window.innerHeight - 170)}px`;
+            const colorIdx = board.children.length % stickyColors.length;
+            note.style.background = stickyColors[colorIdx];
+            note.style.borderColor = '#c1950a';
+
+            const titleInput = document.createElement('input');
+            titleInput.type = 'text';
+            titleInput.className = 'note-title';
+            titleInput.value = text;
+            titleInput.placeholder = 'Type of list (e.g., Groceries, Work)';
+
             const span = document.createElement('span');
             span.textContent = text;
             span.addEventListener('click', () => {
-                li.classList.toggle('completed');
+                const becomesCompleted = !note.classList.contains('completed');
+                note.classList.toggle('completed');
+                if (becomesCompleted) {
+                    fireConfettiGrande();
+                }
             });
+
+            const miniToggleBtn = document.createElement('button');
+            miniToggleBtn.textContent = '➕';
+            miniToggleBtn.className = 'subtask-toggle';
+            miniToggleBtn.title = 'Add or show mini tasks';
 
             const removeBtn = document.createElement('button');
             removeBtn.textContent = '✖';
             removeBtn.className = 'remove-btn';
             removeBtn.addEventListener('click', () => {
-                list.removeChild(li);
+                fireConfetti();
+                note.parentElement.removeChild(note);
             });
 
-            li.appendChild(span);
-            li.appendChild(removeBtn);
-            return li;
+            const subtaskArea = document.createElement('div');
+            subtaskArea.className = 'subtask-area';
+
+            const subtaskRow = document.createElement('div');
+            subtaskRow.className = 'subtask-input-row';
+
+            const subtaskInput = document.createElement('input');
+            subtaskInput.type = 'text';
+            subtaskInput.placeholder = 'Mini task...';
+
+            const subtaskAddBtn = document.createElement('button');
+            subtaskAddBtn.textContent = 'Add';
+
+            const subtaskList = document.createElement('ul');
+            subtaskList.className = 'subtask-list';
+
+            function addSubtask() {
+                const subText = subtaskInput.value.trim();
+                if (!subText) return;
+                const subli = document.createElement('li');
+                subli.textContent = subText;
+                subli.addEventListener('click', () => {
+                    const done = subli.style.textDecoration !== 'line-through';
+                    subli.style.textDecoration = done ? 'line-through' : '';
+                    if (done) fireConfetti();
+                });
+                subtaskList.appendChild(subli);
+                subtaskInput.value = '';
+                subtaskInput.focus();
+            }
+
+            subtaskAddBtn.addEventListener('click', addSubtask);
+            subtaskInput.addEventListener('keypress', e => {
+                if (e.key === 'Enter') addSubtask();
+            });
+
+            subtaskRow.appendChild(subtaskInput);
+            subtaskRow.appendChild(subtaskAddBtn);
+            subtaskArea.appendChild(subtaskRow);
+            subtaskArea.appendChild(subtaskList);
+
+            miniToggleBtn.addEventListener('click', () => {
+                subtaskArea.classList.toggle('active');
+            });
+
+            const leftColumn = document.createElement('div');
+            leftColumn.style.display = 'flex';
+            leftColumn.style.flexDirection = 'column';
+            leftColumn.style.alignItems = 'flex-start';
+            leftColumn.style.gap = '0.4rem';
+            leftColumn.appendChild(miniToggleBtn);
+            leftColumn.appendChild(subtaskArea);
+
+            const rightColumn = document.createElement('div');
+            rightColumn.style.display = 'flex';
+            rightColumn.style.flexDirection = 'column';
+            rightColumn.style.gap = '0.4rem';
+            rightColumn.style.width = '100%';
+            rightColumn.appendChild(titleInput);
+
+            const buttonRow = document.createElement('div');
+            buttonRow.style.display = 'flex';
+            buttonRow.style.justifyContent = 'space-between';
+            buttonRow.style.gap = '0.25rem';
+            buttonRow.appendChild(span);
+            buttonRow.appendChild(removeBtn);
+            rightColumn.appendChild(buttonRow);
+
+            note.appendChild(leftColumn);
+            note.appendChild(rightColumn);
+
+            note.addEventListener('mousedown', e => {
+                if (e.target === removeBtn || e.target === span || e.target === miniToggleBtn || e.target === titleInput || e.target === subtaskInput || e.target === subtaskAddBtn) {
+                    return;
+                }
+                e.preventDefault();
+                draggingItem = note;
+                note.classList.add('dragging');
+                const rect = note.getBoundingClientRect();
+                dragOffsetX = e.clientX - rect.left;
+                dragOffsetY = e.clientY - rect.top;
+                note.style.zIndex = '1000';
+                note.style.opacity = '0.9';
+            });
+
+            return note;
         }
+
+        document.addEventListener('mousemove', e => {
+            if (!draggingItem) return;
+            const x = Math.max(10, Math.min(window.innerWidth - draggingItem.offsetWidth - 10, e.clientX - dragOffsetX));
+            const y = Math.max(10, Math.min(window.innerHeight - draggingItem.offsetHeight - 10, e.clientY - dragOffsetY));
+            draggingItem.style.left = `${x}px`;
+            draggingItem.style.top = `${y}px`;
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (draggingItem) {
+                draggingItem.style.zIndex = '';
+                draggingItem.style.opacity = '';
+                draggingItem.classList.remove('dragging');
+                draggingItem = null;
+            }
+        });
 
         addBtn.addEventListener('click', () => {
             const text = input.value.trim();
             if (text) {
                 const item = createTodoItem(text);
-                list.appendChild(item);
+                board.appendChild(item);
                 input.value = '';
                 input.focus();
             }
