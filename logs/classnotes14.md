@@ -22,5 +22,7 @@
 - const: to define a constant 
 - ElementByID(""): if the element has the id of "", then do x,y,z --> uses the id to match and properly execute 
 
-
+- to create variable use, const __ = document.querySelector(__) 
+    - when using the same ones, creating variables make it easier to store
+    
 
