@@ -17,7 +17,7 @@ What does this arrow function do? const f = x => x **2
     - it's going to show simply hello, with not name 
     - if (! username) : if username does not exist or not not empty then it will either leave it back or if you have a if function then it will populate the name you used 
 
-
+- ! (xxxx) mean if not that input then....
 
 - AND (&&)
     - when you incorporate this with the other function, the both conditions must be true 
