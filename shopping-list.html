@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+</head>
+<body>
+    <h1>Shopping List</h1>
+
+    <!-- Input and add button -->
+    <input id="item-input" type="text" placeholder="Type new item" />
+    <button id="add-button">Add</button>
+
+    <!-- Unordered list where items appear -->
+    <ul id="item-list"></ul>
+
+    <script>
+        // Start with an array of items
+        const items = ['Milk', 'Eggs', 'Bread'];
+
+        // Function to draw list on page from array data
+        function renderList() {
+            const list = document.getElementById('item-list');
+            list.innerHTML = ''; // clear current list
+
+            for (let i = 0; i < items.length; i++) {
+                const li = document.createElement('li');
+                li.textContent = items[i];
+                list.appendChild(li);
+            }
+        }
+
+        // Initial render
+        renderList();
+
+        // Add button action
+        document.getElementById('add-button').addEventListener('click', function () {
+            const input = document.getElementById('item-input');
+            const newItem = input.value.trim();
+
+            if (newItem === '') {
+                return; // do nothing when input is empty
+            }
+
+            items.push(newItem); // add to array
+            input.value = ''; // clear input
+            renderList(); // re-render full list
+        });
+
+        // Allow Enter key to add item too
+        document.getElementById('item-input').addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                document.getElementById('add-button').click();
+            }
+        });
+    </script>
+</body>
+</html>
