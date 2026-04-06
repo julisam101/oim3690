@@ -1,4 +1,4 @@
-# Week 9 [3/30-4/3] 
+# Week 10 [3/30-4/3] 
 
 ## What I learned this week
 - This was a fun week because it was looking into the what if functions and how to use JavaScript for math purposes. I learned how to properly set up equations and how to manipulate them. Knowing the difference between == and === comes in handy. Or even knowing how to switch the storage of the data. If your inputs are set as string, then the output you would want won't happen. You would have to change it to integers. This is the part of JavaScript where close attention to detail really matters because something as little as to how the data is stored can effect the outcome. 
