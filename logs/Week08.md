@@ -1,4 +1,4 @@
-# Week 7 [3/8-3/14]
+# Week 8 [3/8-3/14]
 
 ## To Do AI Java
 
