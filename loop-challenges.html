@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1> Loop Challenge </h1>
+    <button> Ordered List </button>
+
+
+
+    <script> 
+
+    const numbers = [4, -8, 15, -16, 23, 42, -3];
+
+    const btn = document.querySelector("button");
+    btn.addEventListener("click", function () {
+        const sortedNumbers = numbers.slice().sort((a, b) => a - b);
+        const list = document.createElement("ol");
+
+        for (let i = 0; i < sortedNumbers.length; i++) {
+            const listItem = document.createElement("li");
+            listItem.textContent = sortedNumbers[i];
+            list.appendChild(listItem);
+        }
+
+        document.body.appendChild(list);
+    });
+    
+    
+    </script>
+
+
+</body>
+</html>
