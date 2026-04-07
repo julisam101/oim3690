@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type = "text" placeholder = "Student Name" id="student-name">
+    <input type = "text" placeholder = "Grade" id="student-grade">
+    <button> Add Student </button>
+    <div id="student-list"></div>
+
+    <script>
+        const students = [ 
+            { name: "Alice", grade: 'A' },
+            { name: "Bob", grade: 'B' },
+            { name: "Charlie", grade: 'C' }
+        ];
+
+        const list = document.querySelector('#student-list')
+
+        function renderStudents() {
+            list.innerHTML = ''; 
+
+            for (let i = 0; i < students.length; i++) {
+                const card = document.createElement('div');
+                card.textContent = `${students[i].name}: ${students[i].grade}`;
+                list.appendChild(card);
+            }
+        }
+
+        const btn = document.querySelector("button");
+        btn.addEventListener("click", function() {
+            const nameInput = document.getElementById("student-name");
+            const gradeInput = document.getElementById("student-grade");
+            const name = nameInput.value.trim();
+            const grade = gradeInput.value.trim();
+
+            if (name === '' || grade === '') {
+                return; 
+            }
+
+            students.push({ name: name, grade: grade });
+            nameInput.value = ''; 
+            gradeInput.value = '';
+            renderStudents(); 
+        });
+
+        renderStudents();
+    </script>
+</body>
+</html>
