@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button> Get Random Word! </button>
+    <p id="result">Results</p>
+
+    <script> 
+        const btn = document.querySelector("button");
+        const result = document.getElementById("result");
+
+        async function getRandomWord() {
+            try {
+                // Show loading message
+                result.innerHTML = "Loading...";
+                
+                // Fetch 5 words
+                const words = [];
+                for (let i = 0; i < 5; i++) {
+                    const response = await fetch('https://oim.108122.xyz/words/random', {
+                        method: 'GET',
+                    });
+                    
+                    // Check if response is successful
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    // Parse the JSON response and add to array
+                    const data = await response.json();
+                    console.log('API Response:', data); // Log to see the structure
+                    words.push(data.word || data.message || data[0]); // Try different property names
+                }
+                
+                // Display the words as a list
+                let html = '<h2>Random Words:</h2><ul>';
+                for (const word of words) {
+                    html += `<li>${word}</li>`;
+                }
+                html += '</ul>';
+                result.innerHTML = html;
+            } catch (error) {
+                // Handle errors
+                console.error('Error fetching words:', error);
+                result.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+
+        // Add click event listener to button
+        btn.addEventListener("click", getRandomWord);
+    </script>
+
+
+
+</body>
+</html>
