@@ -9,6 +9,7 @@
     <button> Click</button>
     <p id="result"></p>
 
+    <script src="config.js"></script>
     <script> 
         const btn = document.querySelector("button");
         const result = document.getElementById("result");
@@ -20,7 +21,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-Token': 'julissajulissa'  
+                        'X-Token': OIM_TOKEN
                     },
                     body: JSON.stringify({ message: text })
                 });
@@ -43,7 +44,7 @@
                 const response = await fetch('https://oim.108122.xyz/mass', {
                     method: 'GET',
                     headers: {
-                        'X-Token': 'julissajulissa',
+                        'X-Token': OIM_TOKEN
                     },
                 });
                 
