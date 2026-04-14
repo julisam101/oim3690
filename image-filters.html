@@ -39,6 +39,7 @@
       <button id="btn-red">Red Filter</button>
       <button id="btn-gray">Grayscale</button>
       <button id="btn-negative">Negative</button>
+     <button id="btn-blurry">Blurry</button>
     </div>
     <h2 id="rgb-info"></h2>
 
@@ -97,8 +98,20 @@
       function grayscaleFilter() {
         const imgData = getFilteredImageData();
         for (let i = 0; i < imgData.data.length; i += 4) {
-          // Your code here
+          const avg = (imgData.data[i] + imgData.data[i + 1] + imgData.data[i + 2]) / 3;
+          let factor;
+
+          if (avg > 128) {
+            factor = 0.5 + (avg - 128) / 255 * 0.5; // Lighter colors get closer to white
+          } else {
+            factor = 0.5 - (128 - avg) / 255 * 0.5; // Darker colors get closer to black
+          }
+
+          imgData.data[i] = avg * factor; // Red
+          imgData.data[i + 1] = avg * factor; // Green
+          imgData.data[i + 2] = avg * factor; // Blue
         }
+
         filteredCtx.putImageData(imgData, 0, 0);
       }
 
@@ -107,15 +120,58 @@
       function negativeFilter() {
         const imgData = getFilteredImageData();
         for (let i = 0; i < imgData.data.length; i += 4) {
-          // Your code here
+          imgData.data[i] = 255 - imgData.data[i]; // Red
+          imgData.data[i + 1] = 255 - imgData.data[i + 1]; // Green
+          imgData.data[i + 2] = 255 - imgData.data[i + 2]; // Blue
         }
         filteredCtx.putImageData(imgData, 0, 0);
       }
+
+      // TODO: Blurry filter
+      // Hint: Apply a simple blur kernel (e.g., 3x3 average), repeated for a stronger blur
+      function blurryFilter() {
+        const imgData = getFilteredImageData();
+        const width = filteredCanvas.width;
+        const height = filteredCanvas.height;
+        let blurredData = new Uint8ClampedArray(imgData.data);
+
+        // Apply a 3x3 blur pass multiple times for a stronger blur effect.
+        for (let pass = 0; pass < 3; pass++) {
+          const newData = new Uint8ClampedArray(blurredData);
+
+          for (let y = 1; y < height - 1; y++) {
+            for (let x = 1; x < width - 1; x++) {
+              const idx = (y * width + x) * 4;
+              let r = 0, g = 0, b = 0;
+
+              for (let dy = -1; dy <= 1; dy++) {
+                for (let dx = -1; dx <= 1; dx++) {
+                  const neighborIdx = ((y + dy) * width + (x + dx)) * 4;
+                  r += blurredData[neighborIdx];
+                  g += blurredData[neighborIdx + 1];
+                  b += blurredData[neighborIdx + 2];
+                }
+              }
+
+              newData[idx] = r / 9;
+              newData[idx + 1] = g / 9;
+              newData[idx + 2] = b / 9;
+            }
+          }
+
+          blurredData = newData;
+        }
+
+        const output = new ImageData(blurredData, width, height);
+        filteredCtx.putImageData(output, 0, 0);
+      }
+
 
       // Attach buttons
       document.getElementById("btn-red").addEventListener("click", redFilter);
       document.getElementById("btn-gray").addEventListener("click", grayscaleFilter);
       document.getElementById("btn-negative").addEventListener("click", negativeFilter);
+      document.getElementById("btn-blurry").addEventListener("click", blurryFilter);
     </script>
   </body>
 </html>
