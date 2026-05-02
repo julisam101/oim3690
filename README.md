@@ -9,5 +9,11 @@ Hi! My name is Julissa Morales, and I'm a senior at Babson College. Welcome to m
 
 
 ### Links
-- Personal Website  - would put Personal Website in brackets and then without adding a space and starting off with a ( ) add the link to your website 
-- Mini Project 1 - 
+- Personal Website  - https://julisam101.github.io/
+- BostonHacks - https://julisam101.github.io/bostonhacks/
+- BrainGames - https://julisam101.github.io/braingames/
+- FinancialFreedom - https://julisam101.github.io/financialfreedom/
+- FindingBooks - https://julisam101.github.io/findingbooks/
+- MeetPuddles - https://julisam101.github.io/meetpuddles/
+
+
